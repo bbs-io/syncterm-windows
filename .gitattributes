@@ -1,0 +1,9 @@
+* text=auto
+*.iss	eol=crlf
+*.lst	eol=crlf
+*.ans	eol=crlf
+*.msg	eol=crlf
+*.txt	eol=crlf
+*.diz	eol=crlf
+*.src	eol=crlf
+*.bin	-text

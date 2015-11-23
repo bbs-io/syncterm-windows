@@ -1,0 +1,739 @@
+		Port            =23
+		ConnectionType  =Telnet
+		DownloadPath    =
+		UploadPath      =
+		Password        =
+		ScreenMode      =80x25
+		NoStatus        =true
+		ANSIMusic       =1
+		Font            =Codepage 437 English
+
+
+		[Roughneck BBS]
+			Address		=shell.roughneckbbs.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+
+		[After Hours BBS]
+			Address		=afterhours-bbs.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Archaic Binary]
+			Address		=bbs.archaicbinary.net
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[AT2k Design BBS]
+			Address		=bbs.at2k.org
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Backwood Realm BBS]
+			Address		=bwrbbs.ddns.net
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Battlestar bbs]
+			Address		=Battlestarbbs.dyndns.org
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Bit Sunrise]
+			Address		=bitsunrise.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[BLACK ƒLAG]
+			Address		=blackflag.acid.org
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Blackfair's Manor]
+			Address		=blackf.synchro.net
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[BlackICE]
+			Address		=BlackICE.BBSIndex.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Blood Stone BBS]
+			Address		=www.bsbbs.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[BrainDeath BBS]
+			Address		=telnet.braindeath.be
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Capitol Shrill BBS]
+			Address		=capitolshrill.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Caslte HQ BBS]
+			Address		=castlehqbbs.us
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[CFBBS]
+			Address		=bbs.akroncdnr.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Cosmo's Castle]
+			Address		=ccbbs.zapto.org
+			NoStatus	=true
+			Port		=2323
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Crazy World Bbs]
+			Address		=crazyworldbbs.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Cyberia BBS]
+			Address		=cyberia.darktech.org
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Dark Sanctuary]
+			Address		=darksanctuary.darktech.org
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Datastream BBS]
+			Address		=dsbbs.net
+			NoStatus	=true
+			Port		=2323
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Deep Space 69 BBS]
+			Address		=bbs.ds69bbs.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Diamond Mine Online]
+			Address		=bbs.dmine.net
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Dock Sud BBS]
+			Address		=bbs.docksud.com.ar
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Edge of oblivion BBS]
+			Address		=eob-bbs.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[electronic chicken bbs]
+			Address		=bbs.electronicchicken.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Error 404 BBS]
+			Address		=error404bbs.DDns.net
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Fireball Express!!! BBS]
+			Address		=fireballex.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[flupH]
+			Address		=fluph.darktech.org
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Futureland]
+			Address		=futureland.grudgemirror.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Generation III POT-D (People of the Dark) v2]
+			Address		=geniv.dyndns.org
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[godta]
+			Address		=bbs.godta.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Golconda BBS]
+			Address		=golconda.punked.us
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[GOONSQUAD]
+			Address		=bbs.everythingisgoon.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[iNK tWO bbs]
+			Address		=bbs.inktwo.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Itch BBS]
+			Address		=scratch-bbs.com
+			NoStatus	=true
+			Port		=2300
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[LegendOfTheRedDragon.ca]
+			Address		=LegendOfTheRedDragon.ca
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Local Yocal BBS]
+			Address		=localyocalbbs.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Loki's Den BBS]
+			Address		=lokisdenbbs.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Ministry of Silly Walks]
+			Address		=fadedservices.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[MMN]
+			Address		=telnet.site
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[MMN Link]
+			Address		=link.telnet.site
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Necronomicon BBS]
+			Address		=necrobbs.strangled.net
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Nethack @ Shodan's Core]
+			Address		=shodanscore.com
+			NoStatus	=true
+			Port		=2323
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Never Never Land]
+			Address		=nnl.darktech.org
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Nite Eyes BBS]
+			Address		=telnet.lizardmaster.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Obscurity BBS]
+			Address		=obscuritybbs.sytes.net
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Orbit BBS]
+			Address		=orbitbbs.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Outpost BBS]
+			Address		=bbs.outpostbbs.net
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Random Noize]
+			Address		=bbs.maze.io
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[realitycheckBBS]
+			Address		=realitycheckbbs.org
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[RetroDigital BBS]
+			Address		=bbs.rdnetbbs.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Retroverse BBS]
+			Address		=bbs.retroverse.com.au
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Scorp's Portal]
+			Address		=scorp.us.to
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Scratch BBS]
+			Address		=scratch-bbs.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Shodans Core]
+			Address		=shodanscore.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Skulls & Crossbones]
+			Address		=skullsbbs.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Starbase 21]
+			Address		=bbs.starbase21.net
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Surf Shop BBS]
+			Address		=surfshopbbs.zapto.org
+			NoStatus	=true
+			Port		=2300
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Tardis BBS]
+			Address		=bbs.cortex-media.info
+			NoStatus	=true
+			Port		=4223
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[The Graveyard BBS (Renegade)]
+			Address		=thegraveyard.darktech.org
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[The Nexus BBS]
+			Address		=bbs.thenexusbbs.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[The Penalty Box]
+			Address		=pbox.no-ip.org
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[The Thunderbolt BBS]
+			Address		=wx1der.dyndns.org
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[The Titantic BBS Telnet]
+			Address		=ttb.slyip.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[The Undermine]
+			Address		=undermine.ddns.net
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[The Valley BBS]
+			Address		=valleybbs.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Throwback BBS]
+			Address		=bbs.throwbackbbs.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Tiny's BBS]
+			Address		=tinysbbs.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Tommy's Holiday Camp (THC)]
+			Address		=vintage.thcbbs.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Trans-Canada BBS]
+			Address		=trans-canada.dyndns.org
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[VAlhalla Home Services]
+			Address		=valhalla.synchro.net
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Valley of Death bbs]
+			Address		=vodbbs.dtdns.net
+			NoStatus	=true
+			Port		=26
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Veleno]
+			Address		=velenobbs.postabox.biz
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Vertrauen]
+			Address		=vert.synchro.net
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[B4BBS]
+			Address		=b4bbs.sampsa.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[CrazyMUD]
+			Address		=crazymud.servegame.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[cyberia.darktech.org]
+			Address		=cyberia.darktech.org
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Flaming Star BBS]
+			Address		=flamingstar.no-ip.info
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Glycerine BBS]
+			Address		=glycerine.homeip.net
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Lostways BBS]
+			Address		=lostwaysbbs.mooo.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[MickyBay BBS]
+			Address		=mickybay.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Mojo's World BBS]
+			Address		=bbs.mojosworld.net
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[monterey]
+			Address		=montereybbs.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[NOLA Carrier]
+			Address		=nolacarrier.com
+			NoStatus	=true
+			Port		=504
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Pyffle HQ]
+			Address		=hq.pyffle.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Shadowscope]
+			Address		=bbs.shadowscope.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Solomon's Temple BBS]
+			Address		=wm.myftp.org
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Success!! BBS]
+			Address		=bbs.kiwi.net
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[The Phunc BBS]
+			Address		=bbs.phunc.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[The Positronium Repository]
+			Address		=cmech.dynip.com
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
+
+		[Tooncity]
+			Address		=tooncity.spaceballcity.net
+			NoStatus	=true
+			Port		=23
+			ConnectionType	=Telnet
+			UserName	=
+			Password	=
