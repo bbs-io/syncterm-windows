@@ -1,6 +1,17 @@
-NOTE: Please leave the Roughneck BBS dialing directory, and Shortcut entries 
-in place.
+# SyncTERM Installer For Windows
 
+To build the installer run `build.cmd`
+
+## Prebuild Script (build.js)
+
+Uses Node.js to download/extract and prepare input directory.
+
+* Download Nightly [SyncTERM](https://syncterm.bbsdev.net/) for Windows
+* Download [Synchronet BBS List](http://vert.synchro.net/sbbslist.ssjs)
+* Create `./input/SyncTERM-Setup.iss` from template with version and build date.
+* Run Inno Setup against Installation Creation Script
+
+## Installer Build Script
 
 The setup script in use requires Inno Setup, and the precompiler directive 
 support.

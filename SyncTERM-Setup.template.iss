@@ -2,17 +2,12 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "SyncTERM"
-#define MyAppVerName "SyncTERM 1.1b-20151122"
-#define MyAppSetupName "SyncTERM-1.1b-20151122-Setup"
+#define MyAppVerName "SyncTERM #{VERSION}#"
+#define MyAppSetupName "SyncTERM-#{VERSION}#-Setup"
 #define MyAppPublisher "SyncTERM.Net"
 #define MyAppURL "http://syncterm.net/"
 #define MyAppURLName "syncterm-website.url"
 #define MyAppExeName "syncterm.exe"
-
-#define RoughneckUrl "http://www.roughneckbbs.com/"
-#define RoughneckUrlName "roughneck-bbs-website.url"
-#define RoughneckUrlShortcut "Roughneck BBS Website"
-#define RoughneckIcon "roughneck-bbs.ico"
 
 
 [Setup]
@@ -22,7 +17,7 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName={pf}\{#MyAppName}
+DefaultDirName={localappdata}\Programs\{#MyAppName}
 DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
 OutputDir=output
@@ -44,16 +39,13 @@ Name: ntcolorfix; Description: Fix DOS Colors; GroupDescription: Other:; MinVers
 
 [Files]
 Source: input\syncterm.exe; DestDir: {app}; Flags: ignoreversion
-Source: input\cl32.dll; DestDir: {app}; Flags: ignoreversion
 Source: input\SDL.dll; DestDir: {app}; Flags: ignoreversion
 Source: input\fonts\*; DestDir: {app}\fonts\; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: input\syncterm.lst; DestDir: {userappdata}\SyncTERM\; Flags: confirmoverwrite comparetimestamp uninsneveruninstall
-Source: input\roughneck-bbs.ico; DestDir: {app}; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [INI]
 Filename: {app}\{#MyAppUrlName}; Section: InternetShortcut; Key: URL; String: {#MyAppURL}; Tasks: ; Languages: 
-Filename: {app}\{#RoughneckUrlName}; Section: InternetShortcut; Key: URL; String: {#RoughneckUrl}; Tasks: ; Languages: 
 
 [Icons]
 Name: {group}\{#MyAppName}; Filename: {app}\{#MyAppExeName}
@@ -62,11 +54,9 @@ Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\{#MyAppName}; Filen
 
 ;Website Shortcuts
 Name: {group}\{cm:ProgramOnTheWeb,{#MyAppName}}; Filename: {app}\{#MyAppUrlName}; IconFilename: {app}\syncterm.exe; IconIndex: 0
-Name: {group}\{#RoughneckUrlShortcut}; Filename: {app}\{#RoughneckUrlName}; IconFilename: {app}\{#RoughneckIcon}
 
 [UninstallDelete]
 Type: files; Name: {app}\{#MyAppUrlName}
-Type: files; Name: {app}\{#RoughneckUrl}
 
 [Code]
 //Is IE7 Installed?
@@ -116,17 +106,17 @@ begin
 	if IsTaskSelected('telnethandler') then
 	begin
 
-		if not RegValueExists(HKEY_LOCAL_MACHINE, 'SOFTWARE\bbsdev.net\syncterm\install', 'telnet') then
+		if not RegValueExists(HKEY_CURRENT_USER, 'SOFTWARE\bbsdev.net\syncterm\install', 'telnet') then
 		begin
 			//save original telnet handler
 			if RegQueryStringValue(HKEY_CLASSES_ROOT, 'telnet\shell\open\command', '', OriginalTelnetHandler) then
 			begin
-				RegWriteStringValue(HKEY_LOCAL_MACHINE, 'SOFTWARE\bbsdev.net\syncterm\install', 'telnet', OriginalTelnetHandler);
+				RegWriteStringValue(HKEY_CURRENT_USER, 'SOFTWARE\bbsdev.net\syncterm\install', 'telnet', OriginalTelnetHandler);
 			end
 			else
 			begin
 				//set to win32 default
-				RegWriteStringValue(HKEY_LOCAL_MACHINE, 'SOFTWARE\bbsdev.net\syncterm\install', 'telnet', 'rundll32.exe url.dll,TelnetProtocolHandler %l');
+				RegWriteStringValue(HKEY_CURRENT_USER, 'SOFTWARE\bbsdev.net\syncterm\install', 'telnet', 'rundll32.exe url.dll,TelnetProtocolHandler %l');
 			end;
 		end;
 
@@ -143,7 +133,7 @@ var
 begin
 
 	//check for telnet
-	if RegQueryStringValue(HKEY_LOCAL_MACHINE, 'SOFTWARE\bbsdev.net\syncterm\install', 'telnet', OriginalTelnetHandler) then
+	if RegQueryStringValue(HKEY_CURRENT_USER, 'SOFTWARE\bbsdev.net\syncterm\install', 'telnet', OriginalTelnetHandler) then
 	begin
 		//restore telnet handler
 		RegWriteStringValue(HKEY_CLASSES_ROOT, 'telnet\shell\open\command', '', OriginalTelnetHandler);
@@ -162,18 +152,18 @@ begin
 	if IsTaskSelected('rloginhandler') then
 	begin
 
-		if not RegValueExists(HKEY_LOCAL_MACHINE, 'SOFTWARE\bbsdev.net\syncterm\install', 'rlogin') then
+		if not RegValueExists(HKEY_CURRENT_USER, 'SOFTWARE\bbsdev.net\syncterm\install', 'rlogin') then
 		begin
 			//save original rlogin handler
 			if RegQueryStringValue(HKEY_CLASSES_ROOT, 'rlogin\shell\open\command', '', OriginalRloginHandler) then
 			begin
 				//set to current value
-				RegWriteStringValue(HKEY_LOCAL_MACHINE, 'SOFTWARE\bbsdev.net\syncterm\install', 'rlogin', OriginalRloginHandler);
+				RegWriteStringValue(HKEY_CURRENT_USER, 'SOFTWARE\bbsdev.net\syncterm\install', 'rlogin', OriginalRloginHandler);
 			end
 			else
 			begin
 				//set to win32 default
-				RegWriteStringValue(HKEY_LOCAL_MACHINE, 'SOFTWARE\bbsdev.net\syncterm\install', 'rlogin', 'rundll32.exe url.dll,TelnetProtocolHandler %l');
+				RegWriteStringValue(HKEY_CURRENT_USER, 'SOFTWARE\bbsdev.net\syncterm\install', 'rlogin', 'rundll32.exe url.dll,TelnetProtocolHandler %l');
 			end;
 		end;
 
@@ -189,7 +179,7 @@ var
 	OriginalRloginHandler: String;
 begin
 
-	if RegQueryStringValue(HKEY_LOCAL_MACHINE, 'SOFTWARE\bbsdev.net\syncterm\install', 'rlogin', OriginalRloginHandler) then
+	if RegQueryStringValue(HKEY_CURRENT_USER, 'SOFTWARE\bbsdev.net\syncterm\install', 'rlogin', OriginalRloginHandler) then
 	begin
 		//restore rlogin handler
 		RegWriteStringValue(HKEY_CLASSES_ROOT, 'rlogin\shell\open\command', '', OriginalRloginHandler);
@@ -216,18 +206,18 @@ begin
 			RegWriteStringValue(HKEY_CLASSES_ROOT, 'ssh', 'URL Protocol', '');
 		end;
 
-		if not RegValueExists(HKEY_LOCAL_MACHINE, 'SOFTWARE\bbsdev.net\syncterm\install', 'ssh') then
+		if not RegValueExists(HKEY_CURRENT_USER, 'SOFTWARE\bbsdev.net\syncterm\install', 'ssh') then
 		begin
 			//save original rlogin handler
 			if RegQueryStringValue(HKEY_CLASSES_ROOT, 'rlogin\shell\open\command', '', OriginalSshHandler) then
 			begin
 				//set to current value
-				RegWriteStringValue(HKEY_LOCAL_MACHINE, 'SOFTWARE\bbsdev.net\syncterm\install', 'ssh', OriginalSshHandler);
+				RegWriteStringValue(HKEY_CURRENT_USER, 'SOFTWARE\bbsdev.net\syncterm\install', 'ssh', OriginalSshHandler);
 			end
 			else
 			begin
 				//set to win32 default
-				RegWriteStringValue(HKEY_LOCAL_MACHINE, 'SOFTWARE\bbsdev.net\syncterm\install', 'ssh', 'rundll32.exe url.dll,TelnetProtocolHandler %l');
+				RegWriteStringValue(HKEY_CURRENT_USER, 'SOFTWARE\bbsdev.net\syncterm\install', 'ssh', 'rundll32.exe url.dll,TelnetProtocolHandler %l');
 			end
 		end;
 
@@ -243,7 +233,7 @@ var
 	OriginalSshHandler: String;
 begin
 
-	if RegQueryStringValue(HKEY_LOCAL_MACHINE, 'SOFTWARE\bbsdev.net\syncterm\install', 'ssh', OriginalSshHandler) then
+	if RegQueryStringValue(HKEY_CURRENT_USER, 'SOFTWARE\bbsdev.net\syncterm\install', 'ssh', OriginalSshHandler) then
 	begin
 		//restore rlogin handler
 		RegWriteStringValue(HKEY_CLASSES_ROOT, 'ssh\shell\open\command', '', OriginalSshHandler);
@@ -371,7 +361,7 @@ begin
 		SshRestore()
 
 		//delete key for future
-		RegDeleteKeyIncludingSubkeys(HKEY_LOCAL_MACHINE, 'SOFTWARE\bbsdev.net\syncterm');
+		RegDeleteKeyIncludingSubkeys(HKEY_CURRENT_USER, 'SOFTWARE\bbsdev.net\syncterm');
 
 	end
 
