@@ -1,7 +1,5 @@
 input
 output
-package.json
-package-lock.json
 *.zip
 
 

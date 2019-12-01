@@ -1,0 +1,31 @@
+{
+  "name": "syncterm-windows",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Windows setup installer for SyncTERM",
+  "dependencies": {
+    "esm": "^3.2.25",
+    "ftp-get": "^0.3.1",
+    "git-commands": "^0.1.0",
+    "github-api": "^3.3.0",
+    "node-fetch": "^2.6.0",
+    "shelljs": "^0.8.3",
+    "unzipper": "^0.10.5"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bbs-io/syncterm-windows.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bbs-io/syncterm-windows/issues"
+  },
+  "homepage": "https://github.com/bbs-io/syncterm-windows#readme",
+  "scripts": {
+    "prebuild": "node -r esm scripts/prebuild.js",
+    "build": "node -r esm scripts/build.js",
+    "release": "node -r esm scripts/release.js"
+  }
+}
