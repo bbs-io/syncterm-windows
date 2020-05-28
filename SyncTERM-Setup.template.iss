@@ -37,7 +37,7 @@ Name: sshhandler; Description: Make Default SSH Handler; GroupDescription: Proto
 
 [Files]
 Source: syncterm\syncterm.exe; DestDir: {app}; Flags: ignoreversion
-Source: syncterm\SDL.dll; DestDir: {app}; Flags: ignoreversion
+Source: syncterm\SDL2.dll; DestDir: {app}; Flags: ignoreversion
 Source: syncterm\fonts\*; DestDir: {app}\fonts\; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: synchronet\syncterm.lst; DestDir: {userappdata}\SyncTERM\; Flags: confirmoverwrite comparetimestamp uninsneveruninstall
 
