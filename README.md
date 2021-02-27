@@ -2,8 +2,8 @@
 
 Downloads:
 
-- [Latest Stable Release](https://github.com/bbs-io/syncterm-windows/releases/tag/stable)
-- [Nightly Development Release](https://github.com/bbs-io/syncterm-windows/releases/tag/dev)
+- [Stable Release](https://github.com/bbs-io/syncterm-windows/releases/tag/stable)
+- [Development Release](https://github.com/bbs-io/syncterm-windows/releases/tag/dev)
 
 ## Building
 
