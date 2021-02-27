@@ -39,48 +39,26 @@ const handleRelease = async ({ asset, tags }) => {
   const commit = await gh.getCurrentCommit();
 
   for (const t of tags) {
-    console.log(`Handling tag:`, t);
+    console.log(`Handling Tag:`, t);
     const { name, desc } = getReleaseInfo(t);
     let tag = await gh.tag(t);
-    if (!tag) {
-      console.log("Creating Tag:", t);
-      tag = await gh.createTag(commit, t);
-    }
+    let release = tag &&  await gh.release(t);
 
-    let release = await gh.release(t);
-    if (!release) {
-      console.log("Creating Release:", t);
-      release = await gh.createRelease(t, {
-        name,
-        body: desc,
-        prerelease: isDev,
-      });
-    }
-
-    const assets = await gh.assets(release.id);
-    let hasAsset = !!assets.find(
-      (a) => a.name.toLowerCase() === fileName.toLowerCase()
-    );
-
-    if (hasAsset && tag.object.sha != commit) {
-      console.log(`Forcing Update:`, t);
+    if (release) {
       await gh.deleteRelease(release.id);
       await delay(1000);
-      await gh.deleteTag(t);
-      await delay(1000);
-      tag = await gh.createTag(commit, t);
-      release = await gh.createRelease(t, {
-        name,
-        body: desc,
-        prerelease: isDev,
-      });
-      hasAsset = false;
     }
 
-    if (!hasAsset) {
-      console.log(`Uploading asset ${t}:`, fileName);
-      await gh.uploadAsset(release.id, fileName, asset);
+    if (tag) {
+      await gh.deleteTag(t);
+      await delay(1000);
     }
+
+    tag = await gh.createTag(commit, t);
+    release = await gh.createRelease(t, {
+
+    console.log(`  Uploading:`, fileName);
+    await gh.uploadAsset(release.id, fileName, asset);
   }
 };
 
