@@ -1,4 +1,4 @@
-# SyncTERM for Windows
+# SyncTERM Installer for Windows
 
 Downloads:
 
