@@ -2,7 +2,7 @@ import shell from "shelljs";
 import fetch from "node-fetch";
 import path from "path";
 import fs from "fs";
-import ftp from "ftp-get";
+import FtpClient from "ftp";
 import unzipper from "unzipper";
 import clone from "fclone";
 
@@ -86,38 +86,66 @@ const downloadAndExtractSyncTerm = async () => {
       })
       .promise()
   );
-  
+
   version = shell
     .exec(`${__dirname}/../input/syncterm/syncterm.exe -v`)
     .stdout.trim()
     .split(/\s+/)[1];
 };
 
-const downloadSynchronetBbsList = () => {
-  const sbbslist = "ftp://ftp.synchro.net/syncterm.lst";
-  const sbbslistPath = "./input/synchronet/syncterm.lst";
+const downloadSynchronetBbsList = () =>
+  new Promise((resolve, reject) => {
+    const sbbslist = "ftp://ftp.synchro.net/syncterm.lst";
+    const sbbslistPath = "./input/synchronet/syncterm.lst";
 
-  console.log(`Downloading ${sbbslist} to ${sbbslistPath}`);
-  shell.mkdir("-p", path.dirname(sbbslistPath));
-  await new Promise((resolve, reject) =>
-    ftp.get(sbbslist, sbbslistPath, (err) => (err ? reject(err) : resolve()))
-  );
-  await delay(500);
-  bbslist = new Date(fs.statSync(sbbslistPath).mtime).toJSON();
-};
+    console.log(`Downloading ${sbbslist} to ${sbbslistPath}`);
+
+    const ftp = new FtpClient();
+    ftp.on("error", reject);
+    ftp.on("ready", () => {
+      ftp.lastMod("/syncterm.lst", (error, lastMod) => {
+        if (error) return reject(error);
+
+        // fix offset
+        lastMod.setMinutes(
+          -1 * lastMod.getTimezoneOffset() + lastMod.getMinutes()
+        );
+
+        // stow when the list was created
+        bbslist = lastMod;
+
+        shell.mkdir("-p", "./input/synchronet");
+        ftp.get("/syncterm.lst", (error, readStream) => {
+          if (error) return reject(error);
+          readStream
+            .pipe(fs.createWriteStream(sbbslistPath))
+            .on("error", reject)
+            .on("close", resolve);
+        });
+      });
+    });
+    ftp.connect({
+      host: "ftp.synchro.net",
+      port: 21,
+    });
+  }).then(() => delay(500));
 
 const prepareInput = async () => {
   await downloadSynchronetBbsList();
   await downloadAndExtractSyncTerm();
   fs.writeFileSync(
     "./input/syncterm.json",
-    JSON.stringify({
-      version,
-      built,
-      build,
-      bbslist,
-      isDev
-    }, null, 4),
+    JSON.stringify(
+      {
+        version,
+        built,
+        build,
+        bbslist,
+        isDev,
+      },
+      null,
+      4
+    ),
     "utf8"
   );
 
@@ -145,7 +173,10 @@ async function main() {
   await prepareSetupScript({ build, version });
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
+main()
+  .then(() => delay(100))
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
