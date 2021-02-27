@@ -62,10 +62,16 @@ const downloadAndExtractSyncTerm = async () => {
         entry
           .pipe(fs.createWriteStream(filePath))
           .on("finish", () => {
-            console.log(` Extracted: ${filePath}`);
+            // console.log(` Extracted: ${filePath}`);
 
             if (entry.path === "syncterm.exe") {
               built = entry.vars.lastModifiedDateTime;
+
+              // fix offset
+              built.setMinutes(
+                2 * built.getTimezoneOffset() + built.getMinutes()
+              );
+
               build = built.toJSON().replace(/\D/g, "").substr(2, 6);
               const { path, type, size } = entry;
 
