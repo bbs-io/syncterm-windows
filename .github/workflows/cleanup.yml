@@ -1,4 +1,4 @@
-name: Cleanup older workflow runs and dev releases
+name: Cleanup - remove older dev releases and workflow runs
 
 on:
   schedule:
