@@ -1,4 +1,4 @@
-name: Cleanup older workflow runs and nightly releases
+name: Cleanup older workflow runs and dev releases
 
 on:
   schedule:

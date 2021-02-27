@@ -39,10 +39,10 @@ const handleRelease = async ({ asset, tags }) => {
   const commit = await gh.getCurrentCommit();
 
   for (const t of tags) {
-    console.log(`Handling Tag:`, t);
+    console.log(`Handling tag:`, t);
     const { name, desc } = getReleaseInfo(t);
     let tag = await gh.tag(t);
-    let release = tag &&  await gh.release(t);
+    let release = tag && (await gh.release(t));
 
     if (release) {
       await gh.deleteRelease(release.id);
@@ -56,8 +56,12 @@ const handleRelease = async ({ asset, tags }) => {
 
     tag = await gh.createTag(commit, t);
     release = await gh.createRelease(t, {
+      name,
+      body: desc,
+      prerelease: isDev,
+    });
 
-    console.log(`  Uploading:`, fileName);
+    console.log(`Uploading asset ${t}:`, fileName);
     await gh.uploadAsset(release.id, fileName, asset);
   }
 };
