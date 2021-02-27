@@ -5,6 +5,8 @@ Downloads:
 - [Stable Release](https://github.com/bbs-io/syncterm-windows/releases/tag/stable)
 - [Development Release](https://github.com/bbs-io/syncterm-windows/releases/tag/dev)
 
+The latest builds will have a recent shared Synchronet BBS List included.
+
 ## Building
 
 This repository builds the latest stable or dev SyncTERM Installer for Windows.
