@@ -1,16 +1,19 @@
 {
   "name": "syncterm-windows",
-  "version": "1.0.0",
+  "version": "2.0.1",
   "private": true,
   "description": "Windows setup installer for SyncTERM",
   "dependencies": {
+    "@octokit/rest": "^18.3.0",
+    "cheerio": "^1.0.0-rc.5",
     "esm": "^3.2.25",
+    "fclone": "^1.0.11",
     "ftp-get": "^0.3.1",
-    "git-commands": "^0.1.0",
-    "github-api": "^3.3.0",
-    "node-fetch": "^2.6.0",
-    "shelljs": "^0.8.3",
-    "unzipper": "^0.10.5"
+    "node-fetch": "^2.6.1",
+    "shelljs": "^0.8.4",
+    "string-argv": "^0.3.1",
+    "unzipper": "^0.10.11",
+    "which": "^2.0.2"
   },
   "devDependencies": {},
   "repository": {
@@ -26,6 +29,7 @@
   "scripts": {
     "prebuild": "node -r esm scripts/prebuild.js",
     "build": "node -r esm scripts/build.js",
-    "release": "node -r esm scripts/release.js"
+    "release": "node -r esm scripts/release.js",
+    "cleanup": "node -r esm scripts/cleanup.js"
   }
 }

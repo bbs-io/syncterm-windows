@@ -1,0 +1,26 @@
+name: Cleanup older workflow runs and nightly releases
+
+on:
+  schedule:
+    - cron: "0 13 * * *"
+  push:
+    branches:
+      - master
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: Cleanup
+        run: |
+          npm ci
+          npm run cleanup
+        env:
+          CI: true
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}

@@ -1,0 +1,48 @@
+name: Nightly Check for New Releases
+
+on:
+  schedule:
+    - cron: "0 12 * * *"
+  push:
+    branches:
+      - master
+
+jobs:
+  build-nightly:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: Install NPM Dependencies
+        run: npm ci
+      - name: Dev - Build
+        run: npm run build
+        env:
+          BUILD_TYPE: dev
+      - name: Dev - Check/Release
+        run: npm run release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  build-latest:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: Install NPM Dependencies
+        run: npm ci
+      - name: Stable - Build
+        run: npm run build
+        env:
+          BUILD_TYPE: stable
+      - name: Stable - Check/Release
+        run: npm run release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}

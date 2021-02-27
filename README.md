@@ -1,16 +1,22 @@
-# SyncTERM Installer For Windows
+# SyncTERM for Windows
 
-To build the installer run `build.cmd`
+Downloads:
 
-## Prebuild Script (build.js)
+- [Latest Stable Release](https://github.com/bbs-io/syncterm-windows/releases/tag/stable)
+- [Nightly Development Release](https://github.com/bbs-io/syncterm-windows/releases/tag/dev)
 
-Uses Node.js (12.13+) to download/extract and prepare input directory.
+## Building
 
-* Downloads Nightly [SyncTERM](https://syncterm.bbsdev.net/) for Windows
-* Downloads [Synchronet BBS List](http://vert.synchro.net/sbbslist.ssjs)
-* Creates `./input/SyncTERM-Setup.iss` from template with version and build date.
-* Runs Inno Setup against Installation Creation Script
+This repository builds the latest stable or dev SyncTERM Installer for Windows.
 
-## Installer Build Script
+```
+npm ci
+npm run build
+```
 
-The setup script in use requires [Inno Setup 6](http://www.jrsoftware.org/isdl.php).
+For the latest dev build: `SET BUILD_TYPE=dev` before running build command.
+
+## Reference Files
+
+- Latest - https://sourceforge.net/projects/syncterm/files/latest/download
+- Development - https://syncterm.bbsdev.net/syncterm.zip

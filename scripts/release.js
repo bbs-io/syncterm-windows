@@ -1,157 +1,105 @@
-import cp from 'child_process';
-import shell from 'shelljs';
-import fs from 'fs';
-import path from 'path'
-import Git from 'git-commands';
-import GitHub from 'github-api';
-import fetch from 'node-fetch';
+import path from "path";
+import fs from "fs";
+import gh from "./lib/gh";
 
+// Get details from prebuild output
 process.chdir(`${__dirname}/../`);
+const { built, build, version, isDev } = JSON.parse(
+  fs.readFileSync(`${__dirname}/../input/syncterm.json`)
+);
 
-const { GITHUB_TOKEN } = process.env;
-const git = new Git({ reps: path.normalize(`${__dirname}/../`) });
-const gh = new GitHub({ token: GITHUB_TOKEN });
-const repo = gh.getRepo('bbs-io', 'syncterm-windows');
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-// syncterm setup output
-const { built, build, version } = JSON.parse(fs.readFileSync(`${__dirname}/../input/syncterm.json`));
-const asset = `./output/SyncTERM-${version}-${build}-Setup.exe`;
-
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
-
-const unwrap = req => req.then(({ status, statusText, data }) => {
-  if (status >= 300) throw Object.assign(new Error(statusText), data, { status, statusText });
-  return data;
-})
-
-const getNightlyTagCommit = async () => {
-  const tags = await unwrap(repo.listTags());
-  const tag = tags.find(t => t.name === 'nightly');
-  if (!tag) return null;
-  return tag.commit.sha;
-};
-
-const refreshTag = async () => {
-  const commit = git.command('rev-parse HEAD').trim(); // latest commit
-  const nc = await getNightlyTagCommit();
-
-  if (nc && nc == commit) {
-    console.log(`Tag 'nightly' is current.`);
-    return;
+const getReleaseInfo = (tag) => {
+  if (tag === "dev") {
+    return {
+      name: "Latest Development Release",
+      desc: `checked daily at 12:00 UTC\n\n- version: ${version}\n- built: ${built}`,
+    };
+  } else if (tag === "stable") {
+    return {
+      name: "Latest Stable Release",
+      desc: `checked daily at 12:00 UTC\n\n- version: ${version}\n- built: ${built}`,
+    };
+  } else if (tag.indexOf("v") === 0) {
+    return {
+      name: `Release ${tag}`,
+      desc: `- version: ${version}\n- built: ${built}`,
+    };
   }
 
-  if (nc) {
-    console.log(`Removing old 'nightly' tag`);
-    await unwrap(repo.deleteRef('tags/nightly'));
-  }
-
-  console.log(`Setting 'nightly' tag to ${commit}`);
-  await unwrap(repo.createRef({
-    ref: 'refs/tags/nightly',
-    sha: commit,
-  }));
-
-  console.log(`Set 'nightly' tag to latest commit.`);
-  return;
+  return {
+    name: `Development Release ${tag}`,
+    desc: `- version: ${version}\n- built: ${built}`,
+  };
 };
 
-const getRelease = async () => {
-  const releases = await unwrap(repo.listReleases());
-  const release = releases.find(r => r.tag_name === 'nightly');
-  return release;
-}
+const handleRelease = async ({ asset, tags }) => {
+  const fileName = path.basename(asset);
+  const commit = await gh.getCurrentCommit();
 
-const createRelease = async () => {
-  console.log(`Creating 'nightly' release`);
-  const data = await unwrap(repo.createRelease({
-    tag_name: 'nightly',
-    name: 'Nightly Release',
-    body: 'Nightly release build daily at 0700 UTC',
-    draft: false,
-    prerelease: false,
-  }));
-  return data;
-}
-
-const removeAsset = async asset => {
-  console.log(`Removing old asset`, asset.url);
-  const result = await fetch(
-    asset.url,
-    {
-      method: 'DELETE',
-      headers: { authorization: `token ${GITHUB_TOKEN}` }
+  for (const t of tags) {
+    console.log(`Handling tag:`, t);
+    const { name, desc } = getReleaseInfo(t);
+    let tag = await gh.tag(t);
+    if (!tag) {
+      console.log("Creating Tag:", t);
+      tag = await gh.createTag(commit, t);
     }
-  );
-  const { status, statusText } = result;
-  const txt = await result.text();
-  const data = (() => {
-    try {
-      return JSON.parse(txt);
-    } catch (_) {
-      return { detail: txt };
+
+    let release = await gh.release(t);
+    if (!release) {
+      console.log("Creating Release:", t);
+      release = await gh.createRelease(t, {
+        name,
+        body: desc,
+        prerelease: isDev,
+      });
     }
-  })();
-  if (result.status >= 300) throw Object.assign(new Error('Error deleting asset'), data, { asset, status, statusText });
-}
 
-const addAsset = async (release) => {
-  console.log(`Uploading new release asset ${asset}`);
+    const assets = await gh.assets(release.id);
+    let hasAsset = !!assets.find(
+      (a) => a.name.toLowerCase() === fileName.toLowerCase()
+    );
 
-  // asset uploads use a different host name, uploads.github.com for upload url
-  const base = release.assets_url.replace(`//api.github.com/`, `//uploads.github.com/`);
-  const url = `${base}?name=${encodeURIComponent(path.basename(asset))}`
-  const readStream = fs.createReadStream(asset);
-  const fileSize = fs.statSync(asset).size;
-  
-  const result = await fetch(url, {
-    method: 'POST',
-    headers: {
-      authorization: `token ${GITHUB_TOKEN}`,
-      Accept: 'application/vnd.github.v3+json',
-      'Content-Length': fileSize,
-      'Content-Type': 'application/x-msdownload', // 'application/octet-stream', // 'application/vnd.microsoft.portable-executable',
-    },
-    body: readStream
+    if (hasAsset && tag.object.sha != commit) {
+      console.log(`Forcing Update:`, t);
+      await gh.deleteRelease(release.id);
+      await delay(1000);
+      await gh.deleteTag(t);
+      await delay(1000);
+      tag = await gh.createTag(commit, t);
+      release = await gh.createRelease(t, {
+        name,
+        body: desc,
+        prerelease: isDev,
+      });
+      hasAsset = false;
+    }
+
+    if (!hasAsset) {
+      console.log(`Uploading asset ${t}:`, fileName);
+      await gh.uploadAsset(release.id, fileName, asset);
+    }
+  }
+};
+
+const main = async () => {
+  const asset = isDev
+    ? `./output/SyncTERM-dev-${version}-${build}-Setup.exe`
+    : `./output/SyncTERM-${version}-Setup.exe`;
+
+  console.log({ version, build, isDev, asset });
+
+  await handleRelease({
+    asset,
+    tags: isDev
+      ? ["dev", `dev-${version}-${build}`]
+      : ["stable", `v${version}`],
   });
-  const { status, statusText } = result;
-  const txt = await result.text();
-  const data = (() => {
-    try {
-      return JSON.parse(txt);
-    } catch (_) {
-      return { detail: txt };
-    }
-  })();
-  if (result.status >= 300) throw Object.assign(new Error('Error deleting asset'), data, { asset, status, statusText });
-}
+};
 
-const refreshRelease = async () => {
-  let release = await getRelease();
-  if (!release) release = await createRelease();
-
-  for (const asset of release.assets) {
-    await removeAsset(asset);
-  }
-
-  await addAsset(release);
-}
-
-async function main() {
-  process.chdir(`${__dirname}/../`);
-
-  if (!GITHUB_TOKEN) {
-    throw new Error('No GITHUB_TOKEN environment variable');
-  }
-  if (!fs.existsSync(asset)) {
-    throw new Error(`Missing expected setup asset file ${asset}`);
-  }
-
-  // download and extract input files
-  await refreshTag();
-  await refreshRelease();
-}
-
-main().catch(error => {
+main().catch((error) => {
   console.error(error);
   process.exit(1);
 });

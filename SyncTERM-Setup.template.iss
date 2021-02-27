@@ -39,7 +39,7 @@ Name: sshhandler; Description: Make Default SSH Handler; GroupDescription: Proto
 Source: syncterm\syncterm.exe; DestDir: {app}; Flags: ignoreversion
 Source: syncterm\SDL2.dll; DestDir: {app}; Flags: ignoreversion
 Source: syncterm\fonts\*; DestDir: {app}\fonts\; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: synchronet\syncterm.lst; DestDir: {userappdata}\SyncTERM\; Flags: confirmoverwrite comparetimestamp uninsneveruninstall
+Source: synchronet\syncterm.lst; DestDir: {%ALLUSERSPROFILE|C:\ProgramData}\SyncTERM\; Flags: confirmoverwrite comparetimestamp uninsneveruninstall
 
 [INI]
 Filename: {app}\{#MyAppUrlName}; Section: InternetShortcut; Key: URL; String: {#MyAppURL}; Tasks: ; Languages: 
