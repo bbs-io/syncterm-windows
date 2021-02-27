@@ -62,7 +62,7 @@ const downloadAndExtractSyncTerm = async () => {
         entry
           .pipe(fs.createWriteStream(filePath))
           .on("finish", () => {
-            // console.log(` Extracted: ${filePath}`);
+            console.log(` Extracted: ${filePath}`);
 
             if (entry.path === "syncterm.exe") {
               built = entry.vars.lastModifiedDateTime;
