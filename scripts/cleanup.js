@@ -11,7 +11,7 @@ async function handleWorkflow(workflow_id) {
       workflow_id,
     });
 
-    while (runs.length > 14) {
+    while (runs.length > 7) {
       const { id: run_id } = runs.pop();
       console.log(`Deleting run: ${run_id}`);
       await octokit.actions.deleteWorkflowRun({

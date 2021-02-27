@@ -53,45 +53,54 @@ const downloadAndExtractSyncTerm = async () => {
   console.log(`Downloading ${zipFileUrl} to ${outputDir}`);
   shell.mkdir("-p", outputDir);
 
-  await fetch(zipFileUrl).then((result) =>
-    result.body
-      .pipe(unzipper.Parse())
-      .on("entry", (entry) => {
-        const filePath = `${outputDir}${entry.path}`;
-        shell.mkdir("-p", path.dirname(filePath));
-        entry
-          .pipe(fs.createWriteStream(filePath))
-          .on("finish", () => {
-            console.log(` Extracted: ${filePath}`);
-
-            if (entry.path === "syncterm.exe") {
-              built = entry.vars.lastModifiedDateTime;
-
-              // fix offset
-              built.setMinutes(
-                2 * built.getTimezoneOffset() + built.getMinutes()
-              );
-
-              build = built.toJSON().replace(/\D/g, "").substr(2, 6);
-              const { path, type, size } = entry;
-
-              Object.assign(detail, {
-                path,
-                type,
-                size,
-                built,
-                build,
-                isDev,
-              });
-            }
-          })
-          .on("error", (error) => {
-            console.error(error);
-            process.exit(3);
-          });
+  await fetch(zipFileUrl).then(
+    (result) =>
+      new Promise((resolve, reject) => {
+        result.body
+          .pipe(fs.createWriteStream("./input/syncterm.zip"))
+          .on("error", reject)
+          .on("close", resolve);
       })
-      .promise()
   );
+
+  await delay(100);
+
+  await fs
+    .createReadStream("./input/syncterm.zip")
+    .pipe(unzipper.Parse())
+    .on("entry", (entry) => {
+      const filePath = `${outputDir}${entry.path}`;
+      shell.mkdir("-p", path.dirname(filePath));
+      entry
+        .pipe(fs.createWriteStream(filePath))
+        .on("finish", () => {
+          console.log(` Extracted: ${filePath}`);
+
+          if (entry.path === "syncterm.exe") {
+            built = entry.vars.lastModifiedDateTime;
+
+            // fix offset - time is seems off by 4 hrs
+            built.setMinutes(built.getMinutes() + 4 * 60);
+
+            build = built.toJSON().replace(/\D/g, "").substr(2, 6);
+            const { path, type, size } = entry;
+
+            Object.assign(detail, {
+              path,
+              type,
+              size,
+              built,
+              build,
+              isDev,
+            });
+          }
+        })
+        .on("error", (error) => {
+          console.error(error);
+          process.exit(3);
+        });
+    })
+    .promise();
 
   version = shell
     .exec(`${__dirname}/../input/syncterm/syncterm.exe -v`)
