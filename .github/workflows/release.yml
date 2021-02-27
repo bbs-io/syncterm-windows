@@ -1,0 +1,36 @@
+name: Release - Current Stable and Dev
+
+on:
+  schedule:
+    - cron: "0 12 * * *"
+  push:
+    branches:
+      - master
+
+jobs:
+  latest:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: Install NPM Dependencies
+        run: npm ci
+      - name: Stable - Build
+        run: npm run build
+      - name: Stable - Release
+        run: npm run release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      - name: Dev - Build
+        run: npm run build
+        env:
+          BUILD_TYPE: dev
+      - name: Dev - Release
+        run: npm run release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
