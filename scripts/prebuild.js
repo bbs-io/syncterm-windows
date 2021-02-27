@@ -8,9 +8,13 @@ import clone from "fclone";
 
 // syncterm path after download
 const syncterm = path.normalize(`${__dirname}/../input/syncterm/syncterm.exe`);
+
+const detail = {};
+
 let version = "unknown";
 let built = "unknown";
 let build = "unknown";
+let bbslist = null;
 
 const isDev = process.env.BUILD_TYPE === "dev";
 
@@ -49,8 +53,6 @@ const downloadAndExtractSyncTerm = async () => {
   console.log(`Downloading ${zipFileUrl} to ${outputDir}`);
   shell.mkdir("-p", outputDir);
 
-  const detail = {};
-
   await fetch(zipFileUrl).then((result) =>
     result.body
       .pipe(unzipper.Parse())
@@ -84,22 +86,11 @@ const downloadAndExtractSyncTerm = async () => {
       })
       .promise()
   );
-  detail.version = shell
+  
+  version = shell
     .exec(`${__dirname}/../input/syncterm/syncterm.exe -v`)
     .stdout.trim()
     .split(/\s+/)[1];
-
-  version = detail.version;
-  built = detail.built;
-  build = detail.build;
-
-  fs.writeFileSync(
-    "./input/syncterm.json",
-    JSON.stringify(detail, null, 4),
-    "utf8"
-  );
-
-  await delay(500);
 };
 
 const downloadSynchronetBbsList = () => {
@@ -108,15 +99,29 @@ const downloadSynchronetBbsList = () => {
 
   console.log(`Downloading ${sbbslist} to ${sbbslistPath}`);
   shell.mkdir("-p", path.dirname(sbbslistPath));
-  return new Promise((resolve, reject) =>
+  await new Promise((resolve, reject) =>
     ftp.get(sbbslist, sbbslistPath, (err) => (err ? reject(err) : resolve()))
   );
+  await delay(500);
+  bbslist = new Date(fs.statSync(sbbslistPath).mtime).toJSON();
 };
 
 const prepareInput = async () => {
-  await downloadAndExtractSyncTerm();
   await downloadSynchronetBbsList();
-  await delay(100); // wait a second, in case of AV scan
+  await downloadAndExtractSyncTerm();
+  fs.writeFileSync(
+    "./input/syncterm.json",
+    JSON.stringify({
+      version,
+      built,
+      build,
+      bbslist,
+      isDev
+    }, null, 4),
+    "utf8"
+  );
+
+  await delay(500); // wait half a second, in case of AV scan
 };
 
 const prepareSetupScript = () => {

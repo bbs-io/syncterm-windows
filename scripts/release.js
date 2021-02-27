@@ -4,7 +4,7 @@ import gh from "./lib/gh";
 
 // Get details from prebuild output
 process.chdir(`${__dirname}/../`);
-const { built, build, version, isDev } = JSON.parse(
+const { built, build, version, isDev, bbslist } = JSON.parse(
   fs.readFileSync(`${__dirname}/../input/syncterm.json`)
 );
 
@@ -14,23 +14,23 @@ const getReleaseInfo = (tag) => {
   if (tag === "dev") {
     return {
       name: "Latest Development Release",
-      desc: `checked daily at 12:00 UTC\n\n- version: ${version}\n- built: ${built}`,
+      desc: `checked daily at 12:00 UTC\n\n- version: ${version}\n- built: ${built}\n- bbslist: ${bbslist}`,
     };
   } else if (tag === "stable") {
     return {
       name: "Latest Stable Release",
-      desc: `checked daily at 12:00 UTC\n\n- version: ${version}\n- built: ${built}`,
+      desc: `checked daily at 12:00 UTC\n\n- version: ${version}\n- built: ${built}\n- bbslist: ${bbslist}`,
     };
   } else if (tag.indexOf("v") === 0) {
     return {
       name: `Release ${tag}`,
-      desc: `- version: ${version}\n- built: ${built}`,
+      desc: `- version: ${version}\n- built: ${built}\n- bbslist: ${bbslist}`,
     };
   }
 
   return {
     name: `Development Release ${tag}`,
-    desc: `- version: ${version}\n- built: ${built}`,
+    desc: `- version: ${version}\n- built: ${built}\n- bbslist: ${bbslist}`,
   };
 };
 
