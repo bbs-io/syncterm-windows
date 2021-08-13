@@ -53,3 +53,6 @@ For the latest dev build: `SET BUILD_TYPE=dev` before running build command.
 
 - Latest - https://sourceforge.net/projects/syncterm/files/latest/download
 - Development - https://syncterm.bbsdev.net/syncterm.zip
+
+
+<!-- Comment to keep CI/CD daily events going, needs updating regularly: 2021-08-13 -->
