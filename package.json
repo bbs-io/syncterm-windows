@@ -5,7 +5,7 @@
   "description": "Windows setup installer for SyncTERM",
   "dependencies": {
     "@octokit/rest": "^18.3.0",
-    "cheerio": "^1.0.0-rc.5",
+    "cheerio": "^1.0.0-rc.10",
     "esm": "^3.2.25",
     "fclone": "^1.0.11",
     "ftp": "^0.3.10",
