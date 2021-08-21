@@ -59,13 +59,31 @@ async function cleanupNightlies() {
 
   while (tags.length > 14) {
     const tag = tags.pop();
+    const r = await gh.release(tag);
+    if (r) {
+      await gh.deleteRelease(r.id);
+    }
     await gh.deleteTag(tag);
   }
+}
+
+async function cleanupAbandonedReleases() {
+  const releases = (await gh.allReleases())
+    .filter((r) => r.tag_name.startsWith("dev-"))
+    .map((r) => ({ id: r.id, tag: r.tag_name }))
+    .sort((a, b) => ~~b.tag.split("-").pop() - ~~a.tag.split("-").pop());
+
+  while (releases.length > 14) {
+    const r = releases.pop();
+    await gh.deleteRelease(r.id);
+  }
+  console.log(releases);
 }
 
 async function main() {
   await cleanupWorkflows();
   await cleanupNightlies();
+  // await cleanupAbandonedReleases();
 }
 
 main().catch((error) => {

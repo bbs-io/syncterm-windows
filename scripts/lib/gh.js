@@ -131,6 +131,11 @@ export const deleteAsset = (asset_id) =>
     })
     .then((r) => (r && r.data) || r || null);
 
+export const getAllReleases = () =>
+  octokit.repos
+    .listReleases({ owner, repo, per_page: 100 })
+    .then((r) => r.data);
+
 export default {
   getCurrentCommit,
   tag: getTag,
@@ -139,6 +144,7 @@ export default {
   commit: getCommit,
   deleteTag,
   release: getRelease,
+  allReleases: getAllReleases,
   createRelease,
   deleteRelease,
   assets: getAssets,
